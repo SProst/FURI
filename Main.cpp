@@ -311,19 +311,23 @@ int spatial_simple()
 
 	        for (;;)
         {
+			CPhidgetSpatial_setDataRate(spatial, 16);
             capture >> image;
             if (image.empty())
                 break;
-			/*capture >> secondFrame;
-			if (secondFrame.empty())
-                break;*/
 			cv::cvtColor(image,image,CV_RGB2GRAY);
 			imshow("Video", image);
-			display_properties((CPhidgetHandle)spatial);
-			CPhidgetSpatial_setDataRate(spatial, 16);
-			char key = (char) waitKey(5); //delay N millis, usually long enough to display and capture input
+			char key = (char) waitKey(5); //delay 5 milli seconds, usually long enough to display and capture input
 			switch (key)
             {
+			case 'c':
+			case 'C':
+				capture >> image2;
+			if (image2.empty())
+				break;
+			imshow("Video Frame 2", image2);
+			cv::cvtColor(image2,image2,CV_RGB2GRAY);
+			break; 
                 case 'q':
                 case 'Q':
                 case 27: //escape key
@@ -331,6 +335,7 @@ int spatial_simple()
 			CPhidget_close((CPhidgetHandle)spatial);
 			CPhidget_delete((CPhidgetHandle)spatial);
                     return 0;
+					break;
                 //case 'p': //Save an image
                 //    sprintf(filename, "filename%.3d.jpg", n++);
                 //    imwrite(filename, frame);
