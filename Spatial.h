@@ -16,10 +16,6 @@ public:
     void getAcc(void);
     void close(void);
 	virtual ~Spatial(void);
-	virtual void registerHandlers();
-    virtual void attachHandler();
-    virtual void detachHandler();
-    virtual void errorHandler(int error);
 	std::string getErrorDescription(int errorCode);
 private: 
 	CPhidgetHandle spatial;
@@ -27,8 +23,5 @@ private:
 	int getDeviceSerialNumber(void);
 	const char* DeviceType;
 	int numAccelAxes, numGyroAxes, numCompassAxes, dataRateMax, dataRateMin;
-	//int CCONV AttachHandler(CPhidgetHandle spatial, void *userptr);
- //   int CCONV DetachHandler(CPhidgetHandle spatial, void *userptr);
- //   int CCONV ErrorHandler(CPhidgetHandle spatial, void *userptr, int ErrorCode, const char *unknown);
 };
 

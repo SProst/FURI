@@ -27,6 +27,9 @@
     <ClCompile Include="Spatial.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Phidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utility.h">
@@ -36,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Spatial.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Phidget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
