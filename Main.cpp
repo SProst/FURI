@@ -222,7 +222,7 @@ int spatial_simple()
 
 	        for (;;)
         {
-		//	CPhidgetSpatial_setDataRate(spatial, 16);
+			CPhidgetSpatial_setDataRate(spatial, 16);
             capture >> image;
             if (image.empty())
                 break;
