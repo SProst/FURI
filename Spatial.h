@@ -25,8 +25,8 @@
 //	int getDeviceSerialNumber(void);
 //	const char* DeviceType;
 //	int numAccelAxes, numGyroAxes, numCompassAxes, dataRateMax, dataRateMin;
-//	static int AttachHandler(CPhidgetHandle spatial, void *userptr);
-//    static int DetachHandler(CPhidgetHandle spatial, void *userptr);
-//    static int ErrorHandler(CPhidgetHandle spatial, void *userptr, int ErrorCode, const char *unknown);
+//	int CCONV AttachHandler(CPhidgetHandle spatial, void *userptr);
+//    int CCONV DetachHandler(CPhidgetHandle spatial, void *userptr);
+//    int CCONV ErrorHandler(CPhidgetHandle spatial, void *userptr, int ErrorCode, const char *unknown);
 //};
 
