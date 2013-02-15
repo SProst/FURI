@@ -1,5 +1,9 @@
 #pragma once
 #include <vector>
+#include "opencv2/highgui/highgui.hpp"
+#include <opencv2/objdetect/objdetect.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include "opencv\cv.h"
 using namespace std;
 
 class Edge
@@ -16,6 +20,7 @@ public:
 	int getLength();
 	int getEdgeSumCanny();
 	int getEdgeSumOriginal();
+	void compute();
 
 	virtual ~Edge(void);
 private:

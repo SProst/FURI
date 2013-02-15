@@ -1,7 +1,3 @@
-#include "opencv2/highgui/highgui.hpp"
-#include <opencv2/objdetect/objdetect.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include "opencv\cv.h"
 #include <time.h>
 #include <phidget21.h>
 #include "Edge.h"
@@ -96,6 +92,25 @@ int display_properties(CPhidgetHandle phid)
 	return 0;
 }
 
+vector<double> getAcceleration(CPhidgetSpatialHandle phid)
+{
+	vector<double> accelVec(3);
+	double *acceleration;
+	for(int i = 0; i < 3; i++)
+	{
+		CPhidgetSpatial_getAcceleration(phid, i, acceleration);
+		accelVec[i] = *acceleration;
+	}
+
+	for(int i = 0; i < accelVec.size(); i++)
+	{
+		cout << accelVec[i] << endl;
+	}
+	
+	return accelVec;
+}
+
+
 CPhidgetSpatialHandle InitializeSpatialSensor()
 {
 	int result;
@@ -115,7 +130,7 @@ CPhidgetSpatialHandle InitializeSpatialSensor()
 	//Registers a callback that will run according to the set data rate that will return the spatial data changes
 	//Requires the handle for the Spatial, the callback handler function that will be called, 
 	//and an arbitrary pointer that will be supplied to the callback function (may be NULL)
-	CPhidgetSpatial_set_OnSpatialData_Handler(spatial, SpatialDataHandler, NULL);
+	//CPhidgetSpatial_set_OnSpatialData_Handler(spatial, SpatialDataHandler, NULL);
 
 	//open the spatial object for device connections
 	CPhidget_open((CPhidgetHandle)spatial, -1);
@@ -186,165 +201,65 @@ int spatial_simple()
 	return 0;
 }
 
-
-/*void Compute(Mat &image, Mat &image2, vector<Edge>& listOfEdge, vector<Edge>& listOfEdges2)
-{
-	Mat cannyEdge, cannyEdge2;
-	Mat greyGaussian(image.rows, image.cols, CV_8UC1);
-	Mat greyGaussian2(image2.rows, image2.cols, CV_8UC1);
-
-	GaussianBlur(image,greyGaussian, Size(3,3) ,0,0);
-	GaussianBlur(image2, greyGaussian2, Size(3,3),0,0 );
-
-	//Mat edge(grey.rows, grey.cols, CV_8UC1);
-	//Mat edge2(grey2.rows, grey2.cols, CV_8UC1);
-	Canny(greyGaussian,cannyEdge,25,100,3);
-	Canny(greyGaussian2,cannyEdge2,25,100,3);
-
-//	float startTime = (float)clock()/CLOCKS_PER_SEC;
-
-	for(int y = 0; y < cannyEdge.rows; y++)
-	{
-		Edge edge;
-
-		for(int x = 0; x < cannyEdge.cols; x++)
-		{
-				Scalar u = cannyEdge.at<uchar>(y,x);
-				Scalar v = image.at<uchar>(y,x);
-			//	cout << u.val[0] << ", ";
-				if(u.val[0] > 0 && edge.getStartEdgeRow == -1)
-				{
-					edge.startEdgeRow = y;
-					edge.startEdgeColumn = x;
-					edge.edgeVectorCanny.push_back(u.val[0]);
-					edge.edgeVectorOriginal.push_back(v.val[0]);
-				}
-				if(u.val[0] > 0 && edge.startEdgeRow != -1)
-				{
-					edge.edgeVectorCanny.push_back(u.val[0]);
-					edge.edgeVectorOriginal.push_back(v.val[0]);
-				}
-				else if(edge.startEdgeRow != -1)
-				{
-					edge.endEdgeRow = y;
-					edge.endEdgeColumn = x;
-					edge.length = edge.edgeVectorCanny.size();
-				}
-		}
-			if(edge.length > 10)
-				{
-					for(int i = 0; i < edge.edgeVectorCanny.size(); i++)
-					{
-						edge.edgeSumCanny += edge.edgeVectorCanny[i];
-					}
-					for(int j = 0; j < edge.edgeVectorOriginal.size(); j++)
-					{
-						edge.edgeSumOriginal += edge.edgeVectorOriginal[j];
-					}
-				/*	cout << "Canny Edge Sum: " << edge.edgeSumCanny << endl;
-					cout << "Original Image Greyscale Sum: " << edge.edgeSumOriginal << endl;
-					listOfEdge.push_back(edge);
-				}
-	}
-
-	for(int y = 0; y < cannyEdge2.rows; y++)
-	{
-		Edge edge = InitializeEdge();
-
-		for(int x = 0; x < cannyEdge2.cols; x++)
-		{
-				Scalar u = cannyEdge2.at<uchar>(y,x);
-				Scalar v = image2.at<uchar>(y,x);
-			//	cout << u.val[0] << ", ";
-				if(u.val[0] > 0 && edge.startEdgeRow == -1)
-				{
-					edge.startEdgeRow = y;
-					edge.startEdgeColumn = x;
-					edge.edgeVectorCanny.push_back(u.val[0]);
-					edge.edgeVectorOriginal.push_back(v.val[0]);
-				}
-				if(u.val[0] > 0 && edge.startEdgeRow != -1)
-				{
-					edge.edgeVectorCanny.push_back(u.val[0]);
-					edge.edgeVectorOriginal.push_back(v.val[0]);
-				}
-				else if(edge.startEdgeRow != -1)
-				{
-					edge.endEdgeRow = y;
-					edge.endEdgeColumn = x;
-					edge.length = edge.edgeVectorCanny.size();
-				}
-		}
-			if(edge.length > 10)
-				{
-					for(int i = 0; i < edge.edgeVectorCanny.size(); i++)
-					{
-						edge.edgeSumCanny += edge.edgeVectorCanny[i];
-					}
-					for(int j = 0; j < edge.edgeVectorOriginal.size(); j++)
-					{
-						edge.edgeSumOriginal += edge.edgeVectorOriginal[j];
-					}
-				/*	cout << "Canny Edge Shifted Sum: " << edge.edgeSumCanny << endl;
-					cout << "Original Image Shifted Greyscale Sum: " << edge.edgeSumOriginal << endl;
-					listOfEdges2.push_back(edge);
-				}
-	}
-} */
-
 	int main(int argc, char* argv[])
 {
-	ofstream outputFile;
+	/*ofstream outputFile;
 	VideoCapture capture(0);
 	if(!capture.isOpened())
-		return -1;
+		return -1;*/
 
 	Mat image, image2, cannyEdge, cannyEdge2;
 	vector<Edge> listOfEdge;
 	vector<Edge> listOfEdges2;
 	int sum = 0;
 	CPhidgetSpatialHandle spatial = InitializeSpatialSensor();
+	vector<double> vecAccel(3);
+
+	vecAccel = getAcceleration(spatial);
+	getchar();
 	//string imagename = "C:\\Users\\Spencer\\Documents\\Visual Studio 2012\\Projects\\FURI\\x64\\Release\\High_Complexity.jpg";
 	//string imagenameShifted = "C:\\Users\\Spencer\\Documents\\Visual Studio 2012\\Projects\\FURI\\x64\\Release\\High_Complexity_Shifted.jpg";
 	//image = imread(imagename, CV_LOAD_IMAGE_GRAYSCALE);
 	//image2 = imread(imagenameShifted,CV_LOAD_IMAGE_GRAYSCALE);
 
-	        for (;;)
-        {
-			CPhidgetSpatial_setDataRate(spatial, 16);
-            capture >> image;
-            if (image.empty())
-                break;
-			cv::cvtColor(image,image,CV_RGB2GRAY);
-			imshow("Video", image);
-			char key = (char) waitKey(5); //delay 5 milli seconds, usually long enough to display and capture input
-			switch (key)
-            {
-			case 'c':
-			case 'C':
-				capture >> image2;
-			if (image2.empty())
-				break;
-			imshow("Video Frame 2", image2);
-			cv::cvtColor(image2,image2,CV_RGB2GRAY);
-			break; 
-                case 'q':
-                case 'Q':
-                case 27: //escape key
-			printf("Closing...\n");
-			CPhidget_close((CPhidgetHandle)spatial);
-			CPhidget_delete((CPhidgetHandle)spatial);
-                    return 0;
-					break;
-                //case 'p': //Save an image
-                //    sprintf(filename, "filename%.3d.jpg", n++);
-                //    imwrite(filename, frame);
-                //    cout << "Saved " << filename << endl;
-                //    break;
-                default:
-                    break;
-            }
-		}
+	 //       for (;;)
+  //      {
+		////	CPhidgetSpatial_setDataRate(spatial, 16);
+  //          capture >> image;
+  //          if (image.empty())
+  //              break;
+		//	cv::cvtColor(image,image,CV_RGB2GRAY);
+		//	imshow("Video", image);
+
+		//	getchar();
+
+		//	capture >> image2;
+		//	if (image2.empty())
+		//		break;
+		//	imshow("Video Frame 2", image2);
+		//	cv::cvtColor(image2,image2,CV_RGB2GRAY);
+
+		//	char key = (char) waitKey(16); //delay 5 milli seconds, usually long enough to display and capture input
+
+		//	switch (key)
+  //          {	
+  //              case 'q':
+  //              case 'Q':
+  //              case 27: //escape key
+		//	printf("Closing...\n");
+		//	CPhidget_close((CPhidgetHandle)spatial);
+		//	CPhidget_delete((CPhidgetHandle)spatial);
+  //                  return 0;
+		//			break;
+  //              //case 'p': //Save an image
+  //              //    sprintf(filename, "filename%.3d.jpg", n++);
+  //              //    imwrite(filename, frame);
+  //              //    cout << "Saved " << filename << endl;
+  //              //    break;
+  //              default:
+  //                  break;
+  //          }
+		//}
 	//if(image.empty())
  //   {
  //       fprintf(stderr, "Cannot load image\n");
