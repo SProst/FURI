@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <vector>
+#include "Spatial.h"
 #include <list>
 #include <fstream>
 #include <iostream>
@@ -207,16 +208,12 @@ int spatial_simple()
 	VideoCapture capture(0);
 	if(!capture.isOpened())
 		return -1;*/
-
+	
 	Mat image, image2, cannyEdge, cannyEdge2;
 	vector<Edge> listOfEdge;
 	vector<Edge> listOfEdges2;
 	int sum = 0;
-	CPhidgetSpatialHandle spatial = InitializeSpatialSensor();
-	vector<double> vecAccel(3);
 
-	vecAccel = getAcceleration(spatial);
-	getchar();
 	//string imagename = "C:\\Users\\Spencer\\Documents\\Visual Studio 2012\\Projects\\FURI\\x64\\Release\\High_Complexity.jpg";
 	//string imagenameShifted = "C:\\Users\\Spencer\\Documents\\Visual Studio 2012\\Projects\\FURI\\x64\\Release\\High_Complexity_Shifted.jpg";
 	//image = imread(imagename, CV_LOAD_IMAGE_GRAYSCALE);
