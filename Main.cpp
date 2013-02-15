@@ -215,9 +215,6 @@ using namespace std;
 	vector<Edge> listOfEdges2;
 	int sum = 0;
 
-	Spatial spatial;
-	spatial.registerHandlers();
-
 	//string imagename = "C:\\Users\\Spencer\\Documents\\Visual Studio 2012\\Projects\\FURI\\x64\\Release\\High_Complexity.jpg";
 	//string imagenameShifted = "C:\\Users\\Spencer\\Documents\\Visual Studio 2012\\Projects\\FURI\\x64\\Release\\High_Complexity_Shifted.jpg";
 	//image = imread(imagename, CV_LOAD_IMAGE_GRAYSCALE);
