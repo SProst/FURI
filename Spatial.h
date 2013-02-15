@@ -1,6 +1,8 @@
 #pragma once
 #include "phidget21.h"
 #include <string>
+
+namespace phidgets {
 class Spatial
 {
 public:
@@ -25,3 +27,4 @@ private:
 	int numAccelAxes, numGyroAxes, numCompassAxes, dataRateMax, dataRateMin;
 };
 
+}

@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 
+namespace phidgets { 
 Phidget::Phidget(void)
 {
 }
@@ -70,4 +71,6 @@ void Phidget::detachHandler()
 void Phidget::errorHandler(int error)
 {
 	cout << "Phidget error " << error << getErrorDescription(error).c_str();
+}
+
 }

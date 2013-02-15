@@ -3,6 +3,7 @@
 #include "phidget21.h"
 using namespace std;
 
+namespace phidgets {
 class Phidget
 {
 public:
@@ -36,3 +37,4 @@ private:
     static int CCONV ErrorHandler (CPhidgetHandle handle, void *userptr, int ErrorCode, const char *unknown);
 };
 
+}
