@@ -24,10 +24,10 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Spatial.cpp">
+    <ClCompile Include="Phidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Phidget.cpp">
+    <ClCompile Include="Spatial.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,10 +38,10 @@
     <ClInclude Include="Edge.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Spatial.h">
+    <ClInclude Include="Phidget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Phidget.h">
+    <ClInclude Include="Spatial.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

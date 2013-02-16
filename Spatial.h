@@ -4,7 +4,8 @@
 #include <string>
 
 namespace phidgets {
-class Spatial
+class Spatial : 
+	public Phidget
 {
 public:
 	Spatial(void);
