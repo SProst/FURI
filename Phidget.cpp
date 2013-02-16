@@ -10,6 +10,7 @@ Phidget::Phidget(void)
 
 Phidget::~Phidget(void)
 {
+	 CPhidget_delete(handle_);
 }
 
 int CCONV Phidget::AttachHandler(CPhidgetHandle spatial, void *userptr)
@@ -38,9 +39,24 @@ void Phidget::init(CPhidgetHandle handle)
 
 void Phidget::registerHandlers(void)
 {
-CPhidget_set_OnAttach_Handler((CPhidgetHandle)this->handle_, &Phidget::AttachHandler, this);
+	CPhidget_set_OnAttach_Handler((CPhidgetHandle)this->handle_, AttachHandler, this);
   CPhidget_set_OnDetach_Handler((CPhidgetHandle)this->handle_, DetachHandler, this);
   CPhidget_set_OnError_Handler((CPhidgetHandle)this->handle_, ErrorHandler, this);
+}
+
+int CCONV Phidget::open(int serialNumber)
+{
+	return CPhidget_open(handle_,serialNumber);
+}
+
+int CCONV Phidget::close()
+{
+	return(CPhidget_close(handle_));
+}
+
+int CCONV Phidget::waitForAttachment(int timeout)
+{
+  return CPhidget_waitForAttachment(handle_, timeout);
 }
 
 std::string Phidget::getErrorDescription(int errorCode)

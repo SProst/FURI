@@ -10,9 +10,9 @@ public:
 	Phidget(void);
 	virtual ~Phidget(void);
 
-	int open(int serialNumber);
-	int close();
-	int waitForAttachment(int timeout);
+	int CCONV open(int serialNumber);
+	int CCONV close();
+	int CCONV waitForAttachment(int timeout);
 	string getDeviceType();
 	string getDeviceName();
 	string getDeviceLabel();

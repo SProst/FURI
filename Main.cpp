@@ -13,7 +13,7 @@
 
 using namespace cv;
 using namespace std;
-
+using namespace phidgets;
 
 ////callback that will run if the Spatial is attached to the computer
 //int CCONV AttachHandler(CPhidgetHandle spatial, void *userptr)
@@ -205,11 +205,14 @@ using namespace std;
 
 	int main(int argc, char* argv[])
 {
-	ofstream outputFile;
-	VideoCapture capture(0);
-	if(!capture.isOpened())
-		return -1;
-	//CPhidgetSpatialHandle spatial = InitializeSpatialSensor();
+	//ofstream outputFile;
+	//VideoCapture capture(0);
+	//if(!capture.isOpened())
+	//	return -1;
+
+	Spatial spatial;
+	
+
 	Mat image, image2, cannyEdge, cannyEdge2;
 	vector<Edge> listOfEdge;
 	vector<Edge> listOfEdges2;
@@ -220,44 +223,44 @@ using namespace std;
 	//image = imread(imagename, CV_LOAD_IMAGE_GRAYSCALE);
 	//image2 = imread(imagenameShifted,CV_LOAD_IMAGE_GRAYSCALE);
 
-	        for (;;)
-        {
-		//	CPhidgetSpatial_setDataRate(spatial, 16);
-            capture >> image;
-            if (image.empty())
-                break;
-			cv::cvtColor(image,image,CV_RGB2GRAY);
-			imshow("Video", image);
-
-			getchar();
-
-			capture >> image2;
-			if (image2.empty())
-				break;
-			imshow("Video Frame 2", image2);
-			cv::cvtColor(image2,image2,CV_RGB2GRAY);
-
-			char key = (char) waitKey(16); //delay 5 milli seconds, usually long enough to display and capture input
-
-			switch (key)
-            {	
-                case 'q':
-                case 'Q':
-                case 27: //escape key
-			printf("Closing...\n");
-//			CPhidget_close((CPhidgetHandle)spatial);
-//			CPhidget_delete((CPhidgetHandle)spatial);
-                    return 0;
-					break;
-                //case 'p': //Save an image
-                //    sprintf(filename, "filename%.3d.jpg", n++);
-                //    imwrite(filename, frame);
-                //    cout << "Saved " << filename << endl;
-                //    break;
-                default:
-                    break;
-            }
-		}
+//	        for (;;)
+//        {
+//		//	CPhidgetSpatial_setDataRate(spatial, 16);
+//            capture >> image;
+//            if (image.empty())
+//                break;
+//			cv::cvtColor(image,image,CV_RGB2GRAY);
+//			imshow("Video", image);
+//
+//			getchar();
+//
+//			capture >> image2;
+//			if (image2.empty())
+//				break;
+//			imshow("Video Frame 2", image2);
+//			cv::cvtColor(image2,image2,CV_RGB2GRAY);
+//
+//			char key = (char) waitKey(16); //delay 5 milli seconds, usually long enough to display and capture input
+//
+//			switch (key)
+//            {	
+//                case 'q':
+//                case 'Q':
+//                case 27: //escape key
+//			printf("Closing...\n");
+////			CPhidget_close((CPhidgetHandle)spatial);
+////			CPhidget_delete((CPhidgetHandle)spatial);
+//                    return 0;
+//					break;
+//                //case 'p': //Save an image
+//                //    sprintf(filename, "filename%.3d.jpg", n++);
+//                //    imwrite(filename, frame);
+//                //    cout << "Saved " << filename << endl;
+//                //    break;
+//                default:
+//                    break;
+//            }
+//		}
 	//if(image.empty())
  //   {
  //       fprintf(stderr, "Cannot load image\n");

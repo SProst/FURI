@@ -1,5 +1,5 @@
 #pragma once
-#include "phidget21.h"
+
 #include "Phidget.h"
 #include <string>
 
@@ -9,12 +9,6 @@ class Spatial :
 {
 public:
 	Spatial(void);
-	double Gx,Gy,Gz;
-	void getAcc(int axis);
-	int wait(int milliseconds);
-	 int displayProperties(void);
-    void setDataRate(int ms);
-    void getAcc(void);
 	virtual ~Spatial(void);
 protected: 
 	CPhidgetSpatialHandle spatial_handle_;

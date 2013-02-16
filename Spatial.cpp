@@ -10,6 +10,7 @@ Spatial::Spatial(void):
 	Phidget(),
 	spatial_handle_(0)
 {
+	cout << "Running" << endl;
 	CPhidgetSpatial_create(&spatial_handle_);
 	Phidget::init((CPhidgetHandle) spatial_handle_);
 	Phidget::registerHandlers();
@@ -27,6 +28,11 @@ int CCONV Spatial::SpatialDataHandler(CPhidgetSpatialHandle handle, void *userpt
 {
 	((Spatial*)userptr)->dataHandler(data, count);
 	return 0;
+}
+
+void Spatial::setDataRate(int rate)
+{
+	CPhidgetSpatial_setDataRate(spatial_handle_, rate);
 }
 
 void Spatial::dataHandler(CPhidgetSpatial_SpatialEventDataHandle *data, int count)
