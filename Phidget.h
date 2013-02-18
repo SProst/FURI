@@ -22,7 +22,7 @@ public:
 
 	static string getErrorDescription(int errorCode);
 
-protected:
+
 	CPhidgetHandle handle_;
 	void init(CPhidgetHandle handle);
 

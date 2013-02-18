@@ -211,7 +211,6 @@ using namespace phidgets;
 	//	return -1;
 
 	Spatial spatial;
-	
 
 	Mat image, image2, cannyEdge, cannyEdge2;
 	vector<Edge> listOfEdge;

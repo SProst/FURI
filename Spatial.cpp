@@ -10,12 +10,13 @@ Spatial::Spatial(void):
 	Phidget(),
 	spatial_handle_(0)
 {
-	cout << "Running" << endl;
+	int result;
 	CPhidgetSpatial_create(&spatial_handle_);
 	Phidget::init((CPhidgetHandle) spatial_handle_);
 	Phidget::registerHandlers();
 	CPhidgetSpatial_set_OnSpatialData_Handler(spatial_handle_, SpatialDataHandler, this);
-	
+	cout << Phidget::getDeviceSerialNumber() << endl;
+	Phidget::open(Phidget::getDeviceSerialNumber());
 }
 
 void Spatial::zero()
