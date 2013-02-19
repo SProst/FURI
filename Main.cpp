@@ -17,10 +17,10 @@ using namespace phidgets;
 
 	int main(int argc, char* argv[])
 {
-	//ofstream outputFile;
-	//VideoCapture capture(0);
-	//if(!capture.isOpened())
-	//	return -1;
+	ofstream outputFile;
+	VideoCapture capture(0);
+	if(!capture.isOpened())
+		return -1;
 
 	Spatial spatial;
 
@@ -36,7 +36,6 @@ using namespace phidgets;
 
 //	        for (;;)
 //        {
-//		//	CPhidgetSpatial_setDataRate(spatial, 16);
 //            capture >> image;
 //            if (image.empty())
 //                break;
@@ -59,8 +58,7 @@ using namespace phidgets;
 //                case 'Q':
 //                case 27: //escape key
 //			printf("Closing...\n");
-////			CPhidget_close((CPhidgetHandle)spatial);
-////			CPhidget_delete((CPhidgetHandle)spatial);
+//					spatial.close();
 //                    return 0;
 //					break;
 //                //case 'p': //Save an image
@@ -151,6 +149,7 @@ using namespace phidgets;
 	// imshow("Edge2", cannyEdge2);
 	waitKey();
 	getchar();
+	spatial.close();
     return 0;
 }
 
