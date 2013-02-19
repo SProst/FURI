@@ -15,7 +15,6 @@ Phidget::~Phidget(void)
 
 int  Phidget::AttachHandler(CPhidgetHandle spatial, void *userptr)
 {
-	printf("attached\n");
 	((Phidget*)userptr)->attachHandler();
 	return 0;
 }

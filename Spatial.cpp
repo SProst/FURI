@@ -15,7 +15,6 @@ Spatial::Spatial(void):
 	Phidget::init((CPhidgetHandle) spatial_handle_);
 	Phidget::registerHandlers();
 //	CPhidgetSpatial_set_OnSpatialData_Handler(spatial_handle_, SpatialDataHandler, this);
-//	CPhidget_open((CPhidgetHandle)spatial_handle_,-1);
 	Phidget::open();
 
 	printf("Waiting for spatial to be attached.... \n");
