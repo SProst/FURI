@@ -14,9 +14,15 @@ Spatial::Spatial(void):
 	CPhidgetSpatial_create(&spatial_handle_);
 	Phidget::init((CPhidgetHandle) spatial_handle_);
 	Phidget::registerHandlers();
-	CPhidgetSpatial_set_OnSpatialData_Handler(spatial_handle_, SpatialDataHandler, this);
-	cout << Phidget::getDeviceSerialNumber() << endl;
-	Phidget::open(Phidget::getDeviceSerialNumber());
+//	CPhidgetSpatial_set_OnSpatialData_Handler(spatial_handle_, SpatialDataHandler, this);
+//	CPhidget_open((CPhidgetHandle)spatial_handle_,-1);
+	Phidget::open();
+
+	printf("Waiting for spatial to be attached.... \n");
+	if((result = waitForAttachment(10000)))
+	{
+		printf("Problem waiting for attachment \n");
+	}
 }
 
 void Spatial::zero()

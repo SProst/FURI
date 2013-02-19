@@ -10,7 +10,7 @@ public:
 	Phidget(void);
 	virtual ~Phidget(void);
 
-	int CCONV open(int serialNumber);
+	int CCONV open(void);
 	int CCONV close();
 	int CCONV waitForAttachment(int timeout);
 	string getDeviceType();
@@ -21,7 +21,7 @@ public:
 	int getDeviceVersion();
 
 	static string getErrorDescription(int errorCode);
-
+protected: 
 
 	CPhidgetHandle handle_;
 	void init(CPhidgetHandle handle);

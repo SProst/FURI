@@ -13,20 +13,20 @@ Phidget::~Phidget(void)
 	 CPhidget_delete(handle_);
 }
 
-int CCONV Phidget::AttachHandler(CPhidgetHandle spatial, void *userptr)
+int  Phidget::AttachHandler(CPhidgetHandle spatial, void *userptr)
 {
 	printf("attached\n");
 	((Phidget*)userptr)->attachHandler();
 	return 0;
 }
 
-int CCONV Phidget::DetachHandler(CPhidgetHandle spatial, void *userptr)
+int  Phidget::DetachHandler(CPhidgetHandle spatial, void *userptr)
 {
 	((Phidget*)userptr)->detachHandler();
 	return 0;
 }
 
-int CCONV Phidget::ErrorHandler(CPhidgetHandle handle, void *userptr, int ErrorCode, const char *unknown)
+int  Phidget::ErrorHandler(CPhidgetHandle handle, void *userptr, int ErrorCode, const char *unknown)
 {
 	((Phidget*)userptr)->errorHandler(ErrorCode);
 	return 0;
@@ -40,23 +40,23 @@ void Phidget::init(CPhidgetHandle handle)
 
 void Phidget::registerHandlers(void)
 {
-  CPhidget_set_OnAttach_Handler(handle_, &Phidget::AttachHandler, this);
-  CPhidget_set_OnDetach_Handler(handle_, &Phidget::DetachHandler, this);
-  CPhidget_set_OnError_Handler(handle_, &Phidget::ErrorHandler, this);
+  CPhidget_set_OnAttach_Handler(handle_, AttachHandler, this);
+  CPhidget_set_OnDetach_Handler(handle_, DetachHandler, this);
+  CPhidget_set_OnError_Handler(handle_, ErrorHandler, this);
   cout << "Registered handles" << endl;
 }
 
-int CCONV Phidget::open(int serialNumber)
+int  Phidget::open()
 {
-	return CPhidget_open(handle_,serialNumber);
+	return CPhidget_open(handle_,-1);
 }
 
-int CCONV Phidget::close()
+int  Phidget::close()
 {
 	return(CPhidget_close(handle_));
 }
 
-int CCONV Phidget::waitForAttachment(int timeout)
+int  Phidget::waitForAttachment(int timeout)
 {
   return CPhidget_waitForAttachment(handle_, timeout);
 }
@@ -72,7 +72,7 @@ std::string Phidget::getErrorDescription(int errorCode)
 int Phidget::getDeviceSerialNumber()
 {
 	int serNum;
-	CPhidget_getSerialNumber(handle_, &serNum);
+ 	CPhidget_getSerialNumber(handle_, &serNum);
 	return serNum;
 }
 
