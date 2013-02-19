@@ -14,7 +14,7 @@ Spatial::Spatial(void):
 	CPhidgetSpatial_create(&spatial_handle_);
 	Phidget::init((CPhidgetHandle) spatial_handle_);
 	Phidget::registerHandlers();
-//	CPhidgetSpatial_set_OnSpatialData_Handler(spatial_handle_, SpatialDataHandler, this);
+	CPhidgetSpatial_set_OnSpatialData_Handler(spatial_handle_, SpatialDataHandler, this);
 	Phidget::open();
 
 	printf("Waiting for spatial to be attached.... \n");
@@ -43,7 +43,15 @@ void Spatial::setDataRate(int rate)
 
 void Spatial::dataHandler(CPhidgetSpatial_SpatialEventDataHandle *data, int count)
 {
-	cout << "Empty data handler" << endl;
+	cout << "Number of Data Packets in this event: " << count << endl;
+
+	for(int i = 0; i < count; i++)
+	{
+		cout << "=== Data Set:" << i << "===" << endl;
+		cout <<"Acceleration> x: " << data[i]->acceleration[0] << "y: " << data[i]->acceleration[1] << "z: " << data[i]->acceleration[2] << endl;
+		cout << "Timestamp> seconds: " << data[i]->timestamp.seconds << "-- microseconds: " << data[i]->timestamp.microseconds << endl;
+	}
+	
 }
 
 Spatial::~Spatial(void)

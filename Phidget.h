@@ -19,8 +19,8 @@ public:
 	string getLibraryVersion();
 	int getDeviceSerialNumber();
 	int getDeviceVersion();
-
 	static string getErrorDescription(int errorCode);
+
 protected: 
 
 	CPhidgetHandle handle_;

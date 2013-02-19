@@ -10,6 +10,7 @@ class Spatial :
 public:
 	Spatial(void);
 	virtual ~Spatial(void);
+
 protected: 
 	CPhidgetSpatialHandle spatial_handle_;
 

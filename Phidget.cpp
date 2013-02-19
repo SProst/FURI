@@ -52,6 +52,7 @@ int  Phidget::open()
 
 int  Phidget::close()
 {
+	cout << "Closing Phidget Device" << endl;
 	return(CPhidget_close(handle_));
 }
 
