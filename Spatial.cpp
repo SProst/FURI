@@ -48,7 +48,7 @@ void Spatial::dataHandler(CPhidgetSpatial_SpatialEventDataHandle *data, int coun
 	for(int i = 0; i < count; i++)
 	{
 		cout << "=== Data Set:" << i << "===" << endl;
-		cout <<"Acceleration> x: " << data[i]->acceleration[0] << "y: " << data[i]->acceleration[1] << "z: " << data[i]->acceleration[2] << endl;
+		cout <<"Acceleration> x: " << data[i]->acceleration[0] << " y: " << data[i]->acceleration[1] << " z: " << data[i]->acceleration[2] << endl;
 		cout << "Timestamp> seconds: " << data[i]->timestamp.seconds << "-- microseconds: " << data[i]->timestamp.microseconds << endl;
 	}
 	
